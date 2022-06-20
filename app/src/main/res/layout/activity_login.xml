@@ -28,6 +28,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
+    <Button
+        android:id="@+id/signUp"
+        android:layout_width="247dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="5dp"
+        android:text="Sign Up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="239dp"

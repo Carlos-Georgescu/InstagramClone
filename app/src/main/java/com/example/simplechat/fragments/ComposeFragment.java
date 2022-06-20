@@ -47,6 +47,7 @@ public class ComposeFragment extends Fragment {
     private static final int RESULT_OK = 20;
     private EditText description;
     private Button takePicture;
+    private Button submitProfile;
     private ImageView picImage;
     private Button submit;
     private Button logout;
@@ -74,6 +75,7 @@ public class ComposeFragment extends Fragment {
         picImage = view.findViewById(R.id.imgView);
         submit = view.findViewById(R.id.submitButton);
         logout = view.findViewById(R.id.logoutButton);
+        submitProfile = view.findViewById(R.id.submitProfile);
 
         takePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,31 +112,35 @@ public class ComposeFragment extends Fragment {
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(des, currentUser, photoFile);
+               savePost(des, currentUser, photoFile);
             }
         });
+
+        submitProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                saveProfilePicture(currentUser, photoFile);
+                Toast.makeText(getContext(),"clicked!",5);
+                System.out.println("clicked");
+            }
+        });
+
+
     }
 
 
     private void launchCamera() {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference for future access
         photoFile = getPhotoFileUri(photoFileName);
-
-        // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-            // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
-        startActivity(intent);
+        else
+            startActivity(intent);
     }
 
     @Override
@@ -146,10 +152,12 @@ public class ComposeFragment extends Fragment {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
-
                 picImage.setImageBitmap(takenImage);
             } else { // Result was a failure
-                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                // RESIZE BITMAP, see section below
+                // Load the taken image into a preview
+                picImage.setImageBitmap(takenImage);
             }
         }
     }
@@ -170,6 +178,7 @@ public class ComposeFragment extends Fragment {
     }
 
     public void savePost(String textDescription, ParseUser currentUser, File photoFile) {
+
         Post post = new Post();
         post.setDescription(textDescription);
         post.setUser(currentUser);
@@ -185,6 +194,17 @@ public class ComposeFragment extends Fragment {
                 Log.i("post", "Post was successful");
                 description.setText("");
                 picImage.setImageResource(0);
+            }
+        });
+    }
+
+    public void saveProfilePicture(ParseUser currentUser, File photoFile){
+        currentUser.put("profilePic", new ParseFile(photoFile));
+        currentUser.saveInBackground(e -> {
+            if(e==null){
+                System.out.println("went well");
+            }else{
+                System.out.println("went NOT well");
             }
         });
     }

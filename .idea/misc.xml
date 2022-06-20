@@ -11,10 +11,11 @@
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.3378067016601562" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.19592437744140628" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22425689697265627" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.16707153320312498" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.33376007080078124" />
+        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.17022705078125003" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.30430528375733856" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.5759292602539063" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.16614583333333333" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.128419452887538" />
       </map>

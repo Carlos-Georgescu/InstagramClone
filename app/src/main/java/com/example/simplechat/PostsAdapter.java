@@ -11,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
+import java.util.Date;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
@@ -47,6 +50,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private TextView tvDescription;
         private ImageView ivImage;
+        private TextView imageTime;
+        private ImageView profilePicture;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -54,14 +59,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername = itemView.findViewById(R.id.postName);
             ivImage = itemView.findViewById(R.id.postImage);
             tvDescription = itemView.findViewById(R.id.postDescription);
+            imageTime = itemView.findViewById(R.id.imageTime);
+            profilePicture = itemView.findViewById(R.id.profilePicture);
         }
 
         public void bind(Post post)
         {
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            imageTime.setText(post.getKeyCreatedKey().toString());
             if(post.getImage() != null)
                 Glide.with(context).load(post.getImage().getUrl()).into(ivImage);
+
+            ParseUser current = ParseUser.getCurrentUser();
+
+            if(current.get("profilePic") != null) {
+                Glide.with(context).load(post.getProfileImage().getUrl()).into(profilePicture);
+                System.out.println("we are doing it");
+            }
+            //System.out.println("we are NOT doing it");
         }
     }
 }

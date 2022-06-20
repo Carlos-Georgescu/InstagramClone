@@ -18,7 +18,9 @@
         android:theme="@style/Theme.SimpleChat"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -33,7 +35,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:label="@string/title_activity_login"/>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"

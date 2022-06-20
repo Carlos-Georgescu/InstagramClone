@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.simplechat.fragments.ComposeFragment;
 import com.example.simplechat.fragments.PostsFragment;
+import com.example.simplechat.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -68,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
                         fragment = new ComposeFragment();
                         break;
                     case R.id.action_profile:
-                        fragment = new PostsFragment();
+                        fragment = new ProfileFragment();
                         break;
                     default: return true;
                 }

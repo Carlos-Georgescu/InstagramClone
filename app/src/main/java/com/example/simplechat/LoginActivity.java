@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnlogin;
+    private Button signUp;
 
 
     @Override
@@ -26,9 +27,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+       // logs in if the user is already logged in
+//        if (ParseUser.getCurrentUser() == null)
+//            goMainActivity();
+
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnlogin = findViewById(R.id.loginButton);
+        signUp = findViewById(R.id.signUp);
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,10 +45,19 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to login user " + username);
+
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
@@ -58,5 +74,6 @@ public class LoginActivity extends AppCompatActivity {
         private void goMainActivity() {
             Intent i = new Intent(this,HomeActivity.class);
             startActivity(i);
+            finish();
         }
     }
